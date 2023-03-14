@@ -17,9 +17,6 @@ as functions to perform the inverse operations of describing a `Range` or a
 sub-string identified by text offsets in terms of the selected text and its
 surrounding context.
 
-Searching is performed using the `diff-match-patch` library to support finding
-approximate matches.
-
 Relevant specifications:
 
 - [Range](https://dom.spec.whatwg.org/#ranges)

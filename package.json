@@ -1,8 +1,8 @@
 {
   "name": "dom-anchor-text-quote",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Convert between DOM Range instances and text quotes.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "eslint src && BABEL_ENV=test karma start --single-run",
     "prepublish": "babel -d lib src"
@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/tilgovi/dom-anchor-text-quote",
   "dependencies": {
-    "diff-match-patch": "^1.0.0",
-    "dom-anchor-text-position": "^5.0.0"
+    "dom-anchor-text-position": "^5.0.0",
+    "leven": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
