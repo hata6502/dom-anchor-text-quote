@@ -50,16 +50,14 @@ export function fromTextPosition(root, selector) {
   return { exact, prefix, suffix };
 }
 
-export function toRange(root, selector, options = {}) {
-  let position = toTextPosition(root, selector, options);
-  if (position === null) {
-    return null;
-  } else {
-    return textPosition.toRange(root, position);
-  }
+export function toRanges(root, selector) {
+  return toTextPositions(root, selector).map(({ position, distance }) => ({
+    range: textPosition.toRange(root, position),
+    distance,
+  }));
 }
 
-export function toTextPosition(root, selector) {
+export function toTextPositions(root, selector) {
   if (root === undefined) {
     throw new Error('missing required parameter "root"');
   }
@@ -108,19 +106,10 @@ export function toTextPosition(root, selector) {
     return { index: exactMatchIndex, distance };
   });
 
-  let nearestMatchIndex = null;
-  let nearestMatchDistance = Infinity;
-  for (const { index, distance } of matches) {
-    if (distance < nearestMatchDistance) {
-      nearestMatchIndex = index;
-      nearestMatchDistance = distance;
-    }
-  }
-
-  return (
-    nearestMatchIndex && {
-      start: nearestMatchIndex,
-      end: nearestMatchIndex + exact.length,
-    }
-  );
+  return [...matches]
+    .sort((a, b) => a.distance - b.distance)
+    .map(({ index, distance }) => ({
+      position: { start: index, end: index + exact.length },
+      distance,
+    }));
 }
